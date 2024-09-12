@@ -15,11 +15,11 @@ int main()
         cin >> number;
         if (number == 1) {
             cout << "Command 1. Add pipes\n";
-            objects.push_back({ "Pipes" });
+            objects.push_back("Pipes");
         }
         else if (number == 2) {
             cout << "Command 2. Add KC\n";
-            objects.push_back({ "KC" });
+            objects.push_back("KC");
         }
         else if (number == 3) {
             cout << "Command 3. All objects\n";
