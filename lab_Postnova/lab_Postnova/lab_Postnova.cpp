@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 
 using namespace std;
 int main()
@@ -9,16 +10,16 @@ int main()
         << "5. Edit KC;\n" << "6. Save;\n" << "7. Download;\n" << "0. Exit\n";
     cout << "Enter the number\n";
     int number;
-    const int max{ 2 };
-    char objects[max];
-
+    list<string>objects{};
     do {
         cin >> number;
         if (number == 1) {
             cout << "Command 1. Add pipes\n";
+            objects.push_back({ "Pipes" });
         }
         else if (number == 2) {
             cout << "Command 2. Add KC\n";
+            objects.push_back({ "KC" });
         }
         else if (number == 3) {
             cout << "Command 3. All objects\n";
