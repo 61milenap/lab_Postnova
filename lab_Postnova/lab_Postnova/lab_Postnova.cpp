@@ -15,34 +15,29 @@ int main()
     cout << "0. Exit\n";
     cout << "Enter the number\n";
     int number;
-    bool flag;
-    cin >> number;
-    //функции меню
-    if (number == 1) {
+    do {
+        cin >> number;
+        if (number == 1) {
 
-    }
-    else if (number == 2) {
+        }
+        else if (number == 2) {
 
-    }
-    else if (number == 3) {
+        }
+        else if (number == 3) {
 
-    }
-    else if (number == 4) {
+        }
+        else if (number == 4) {
 
-    }
-    else if (number == 5) {
+        }
+        else if (number == 5) {
 
-    }
-    else if (number == 6) {
+        }
+        else if (number == 6) {
 
-    }
-    else if (number == 7) {
+        }
+        else if (number == 7) {
 
-    }
-    else if (number == 0) {
-
-    }
-
-
+        }
+    } while (number != 0);
+    cout << "End\n";
 }
-
