@@ -5,12 +5,14 @@ using namespace std;
 
 
 struct Pipe {
-    int mark_kilometr,length, diameter;
+    int mark_kilometr, length, diameter;
     char repair;
 };
 
 struct PC {
-
+    string name;
+    int count_shop, count_workshop;
+    char perfomance;
 };
 
 int main()
