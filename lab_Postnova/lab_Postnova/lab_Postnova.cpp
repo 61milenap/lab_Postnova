@@ -1,16 +1,16 @@
 #include <iostream>
-#include <list>
 #include <limits>
+#include <fstream>
 
 using namespace std;
 
 struct Pipe {
-    string mark_kilometr, repair;
+    string mark_kilometr="no", repair;
     float length, diameter;
 };
 
 struct CS {
-    string name, perfomance;
+    string name="no", perfomance;
     int count_shop, count_workshop;
 };
 
@@ -30,17 +30,16 @@ Pipe add_pipe()
 
 void input_pipe(Pipe new_pipe)
 {
-    cout << "information pipes\n";
-    cout << "1. pipe name" << " " << new_pipe.mark_kilometr << '\n';
-    cout << "2. pipe length" << " " << new_pipe.length << '\n';
-    cout << "3. pipe diameter" << " " << new_pipe.diameter << '\n';
-    cout << "4. pipe repair" << " " << new_pipe.repair << '\n';
-}
-
-void edit_pipe(Pipe new_pipes)
-{
-    cout << "Enter the pipe attribute that you want to edit\n";
-
+    if (new_pipe.mark_kilometr == "no") {
+        cout << "No new pipe\n";
+    }
+    else {
+        cout << "information pipes\n";
+        cout << "1. pipe name" << " " << new_pipe.mark_kilometr << '\n';
+        cout << "2. pipe length" << " " << new_pipe.length << '\n';
+        cout << "3. pipe diameter" << " " << new_pipe.diameter << '\n';
+        cout << "4. pipe repair" << " " << new_pipe.repair << '\n';
+    } 
 }
 
 CS add_cs()
@@ -59,11 +58,16 @@ CS add_cs()
 
 void input_cs(CS new_station)
 {
-    cout << "information station\n";
-    cout << "1. cs name" << " " << new_station.name << '\n';
-    cout << "2. cs count shop" << " " << new_station.count_shop << '\n';
-    cout << "3. cs count workshop" << " " << new_station.count_workshop << '\n';
-    cout << "4. cs perfomance" << " " << new_station.perfomance << '\n';
+    if (new_station.name == "no") {
+        cout << "No new station\n";
+    }
+    else {
+        cout << "information station\n";
+        cout << "1. cs name" << " " << new_station.name << '\n';
+        cout << "2. cs count shop" << " " << new_station.count_shop << '\n';
+        cout << "3. cs count workshop" << " " << new_station.count_workshop << '\n';
+        cout << "4. cs perfomance" << " " << new_station.perfomance << '\n';
+    }
 }
 
 
