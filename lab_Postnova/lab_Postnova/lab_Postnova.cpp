@@ -5,32 +5,20 @@
 
 using namespace std;
 
+
 struct Pipe {
-    string mark_kilometr="no";
-    bool repair;
-    int diameter;
-    double length;
+    string mark_kilometr = "no";
+    bool repair = 0;
+    int diameter = 0;
+    double length = 0.0;
 };
+
 
 struct CS {
-    string name="no";
-    int count_shop, count_workshop;
-    float perfomance;
+    string name = "no";
+    int count_shop = 0, count_workshop = 0;
+    float perfomance = 0.0;
 };
-
-bool correct_string(const std::string& input) {
-    return !input.empty();
-}
-
-string correct_strings(string& string_data) {
-    do {
-        cin >> string_data;
-        if (not correct_string(string_data)) {
-            cout << "Enter string format output\n";
-        }
-    } while (correct_string(string_data));
-    return string_data;
-}
 
 
 int correct_int(int& int_data)
@@ -45,6 +33,7 @@ int correct_int(int& int_data)
     }
     return int_data;
 }
+
 
 double correct_double(double& double_data)
 {
@@ -73,11 +62,41 @@ bool correct_bool(bool& bool_data)
     return bool_data;
 }
 
+
+int check_number_command(int& int_data)
+{
+    cin >> int_data;
+    while (cin.fail() || cin.peek() != '\n' || int_data < 0 || int_data > 9)
+    {
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "Enter number 0 to 9\n";
+        cin >> int_data;
+    }
+    return int_data;
+}
+
+
+float correct_float_perfomanse(float& float_data)
+{
+    cin >> float_data;
+    while (cin.fail() || cin.peek() != '\n' || float_data <= 0 || float_data > 1)
+    {
+        cin.clear();
+        cin.ignore(100000, '\n');
+        cout << "Enter perfomane 0.00 to 1.00\n";
+        cin >> float_data;
+    }
+    return float_data;
+}
+
+
 Pipe add_pipe()
 {
     Pipe new_pipe;
     cout << "Enter the pipe name format\n";
-    correct_strings(new_pipe.mark_kilometr);
+    cin.ignore();
+    getline(cin, new_pipe.mark_kilometr);
     cout << "Enter the length of the pipe\n";
     correct_double(new_pipe.length);
     cout << "Enter the diameter of the pipe\n";
@@ -86,6 +105,7 @@ Pipe add_pipe()
     correct_bool(new_pipe.repair);
     return new_pipe;
 }
+
 
 void output_pipe(Pipe new_pipe)
 {
@@ -109,8 +129,8 @@ CS add_cs()
     int count_workshop;
     bool fl_cs = 0;
     cout << "Enter the  name of the compression station\n";
-    correct_strings(new_station.name);
-    cin >> new_station.name;
+    cin.ignore();
+    getline(cin, new_station.name);
     cout << "Enter the count shop of the compression station\n";
     correct_int(new_station.count_shop);
     cout << "Enter the count workshop of the compression station\n";
@@ -122,10 +142,11 @@ CS add_cs()
         }
     } while (fl_cs = 1);
     new_station.count_workshop = count_workshop;
-    cout << "Enter the perfomance compression station in the format ok, good, bad\n"; 
-    cin >> new_station.perfomance;
+    cout << "Enter the perfomance compression station in the 0.0 to 1.0\n"; 
+    correct_float_perfomanse(new_station.perfomance);
     return new_station;
 }
+
 
 void output_cs(CS new_station)
 {
@@ -142,11 +163,58 @@ void output_cs(CS new_station)
 }
 
 
+void SavePipe(const Pipe& pipe) {
+    ofstream fout("information.txt");
+    if (pipe.mark_kilometr != "no") {
+        fout << "information of pipe\n";
+        fout << pipe.mark_kilometr << '\n';
+        fout << pipe.length << '\n';
+        fout << pipe.diameter << '\n';
+        fout << pipe.repair << '\n';
+    }
+    else {
+        fout << "no pipe\n";
+    }
+    fout.close();
+}
+
+
+void LoadPipe(Pipe& pipe) {
+    ifstream fin("information.txt");
+
+
+}
+
+
+void SaveCs(const CS& cs) {
+    ofstream fout("information.txt");
+    if (cs.name != "no") {
+        fout << "information cs\n";
+        fout << cs.name << '\n';
+        fout << cs.count_shop << '\n';
+        fout << cs.count_workshop << '\n';
+        fout << cs.perfomance << '\n';
+    }
+    else {
+        fout << "no station\n";
+    }
+    fout.close();
+}
+
+
+void LoadCS(CS& cs) {
+    ifstream fin("information.txt");
+    
+
+}
+
+
 int main()
 {
     Pipe new_pipe;
     CS new_station;
     int number, attribute_pipe, attribute_cs;
+
     while (true) {
         //меню приложения
         cout << "Menu:\n";
@@ -156,7 +224,7 @@ int main()
             << "7. Download Pipe;\n" << "8. Save KC;\n"
             << "9. Download;\n" << "0. Exit\n";
         cout << "Enter the number\n";
-        cin >> number;
+        check_number_command(number);
         switch (number)
         {
         case 1:
@@ -205,13 +273,16 @@ int main()
             }
             break;
         case 6:
+            
             cout << "Save Pipe\n";
+            SavePipe(new_pipe);
             break;
         case 7:
             cout << "Download Pipe\n";
             break;
         case 8:
             cout << "Save KS\n";
+            SaveCs(new_station);
             break;
         case 9:
             cout << "Download KS\n";
