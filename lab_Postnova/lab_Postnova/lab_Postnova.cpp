@@ -5,8 +5,10 @@
 using namespace std;
 
 struct Pipe {
-    string mark_kilometr="no", repair;
-    float length, diameter;
+    string mark_kilometr="no";
+    bool repair;
+    int diameter;
+    float length;
 };
 
 struct CS {
@@ -28,7 +30,7 @@ Pipe add_pipe()
     return new_pipe;
 }
 
-void input_pipe(Pipe new_pipe)
+void output_pipe(Pipe new_pipe)
 {
     if (new_pipe.mark_kilometr == "no") {
         cout << "No new pipe\n";
@@ -40,6 +42,17 @@ void input_pipe(Pipe new_pipe)
         cout << "3. pipe diameter" << " " << new_pipe.diameter << '\n';
         cout << "4. pipe repair" << " " << new_pipe.repair << '\n';
     } 
+}
+
+void edit_pipe(Pipe new_pipe)
+{
+    if (new_pipe.mark_kilometr == "no") {
+        cout << "No new pipe\n";
+    }
+    else {
+        cout << "editing the under repair attribute for a pipe\n";
+        cin >> new_pipe.repair;
+    }
 }
 
 CS add_cs()
@@ -56,7 +69,7 @@ CS add_cs()
     return new_station;
 }
 
-void input_cs(CS new_station)
+void output_cs(CS new_station)
 {
     if (new_station.name == "no") {
         cout << "No new station\n";
@@ -67,6 +80,18 @@ void input_cs(CS new_station)
         cout << "2. cs count shop" << " " << new_station.count_shop << '\n';
         cout << "3. cs count workshop" << " " << new_station.count_workshop << '\n';
         cout << "4. cs perfomance" << " " << new_station.perfomance << '\n';
+    }
+}
+
+
+void edit_cs(CS new_station)
+{
+    if (new_station.name == "no") {
+        cout << "No new station\n";
+    }
+    else {
+        cout << "Change the number of workshops\n";
+        cin >> new_station.count_workshop;
     }
 }
 
@@ -90,68 +115,26 @@ int main()
         case 1:
             cout << "Add pipes\n";
             new_pipe = add_pipe();
-            input_pipe(new_pipe);
+            output_pipe(new_pipe);
             break;
         case 2:
             cout << "Add KC\n";
             new_station = add_cs();
-            input_cs(new_station);
+            output_cs(new_station);
             break;
         case 3:
             cout << "All objects\n";
-            input_pipe(new_pipe);
-            input_cs(new_station);
+            output_pipe(new_pipe);
+            output_cs(new_station);
             break;
         case 4:
             cout << "Edit pipe\n";
-            input_pipe(new_pipe);
-            cout << "enter attribute edit\n";
-            cin >> attribute_pipe;
-            switch (attribute_pipe) {
-            case 1:
-                cout << "Enter the pipe name in the 'numberkm' format\n";
-                cin >> new_pipe.mark_kilometr;
-                break;
-            case 2:
-                cout << "Enter the length of the pipe\n";
-                cin >> new_pipe.length;
-                break;
-            case 3:
-                cout << "Enter the diameter of the pipe\n";
-                cin >> new_pipe.diameter;
-                break;
-            case 4:
-                cout << "Enter the repair of the pipe in the %\n";
-                cin >> new_pipe.repair;
-                break;
-            default:
-                cout << "Enter begin number number attribute 1, 2, 3, 4\n";
-            }
+            edit_pipe(new_pipe);
+            break;
         case 5:
-            cout << "Edit KS\n";
-            input_cs(new_station);
-            cout << "enter attribute edit\n";
-            cin >> attribute_cs;
-            switch (attribute_cs) {
-            case 1:
-                cout << "Enter the  name of the compression station\n";
-                cin >> new_station.name;
-                break;
-            case 2:
-                cout << "Enter the count shop of the compression station\n";
-                cin >> new_station.count_shop;
-                break;
-            case 3:
-                cout << "Enter the count workshop of the compression station\n";
-                cin >> new_station.count_workshop;
-                break;
-            case 4:
-                cout << "Enter the perfomance compression station in the format ok, good, bad\n";
-                cin >> new_station.perfomance;
-                break;
-            default:
-                cout << "Enter begin number number attribute 1, 2, 3, 4\n";
-            }
+            cout << "Edit CS\n";
+            edit_cs(new_station);
+            break;
         case 6:
             cout << "Save\n";
             break;
@@ -160,7 +143,7 @@ int main()
             break;
         case 0:
             cout << "End command\n";
-            return false;
+            return 0;
             break;
         default:
             cout << "There is no such command, write the command number from the menu\n";
