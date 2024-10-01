@@ -20,14 +20,8 @@ struct CS {
     double perfomance = 0.00;
 };
 
-istream&
-operator>>(std::istream& in, Pipe& pipe) {
-    in >> pipe.mark_kilometr >> pipe.length >> pipe.diameter >> pipe.repair;
-    return in;
-}
 
-
-int correct_int()
+int is_correct_int()
 {
     int int_data;
     cin >> int_data;
@@ -42,7 +36,7 @@ int correct_int()
 }
 
 
-double correct_double()
+double is_correct_double()
 {
     double double_data;
     cin >> double_data;
@@ -57,7 +51,7 @@ double correct_double()
 }
 
 
-bool correct_bool()
+bool is_correct_bool()
 {
     bool bool_data;
     cin >> bool_data;
@@ -72,22 +66,22 @@ bool correct_bool()
 }
 
 
-int check_number_command()
+int is_check_number_command()
 {
     int int_data;
     cin >> int_data;
-    while (cin.fail() || cin.peek() != '\n' || int_data < 0 || int_data > 9)
+    while (cin.fail() || cin.peek() != '\n' || int_data < 0 || int_data > 7)
     {
         cin.clear();
         cin.ignore(100000, '\n');
-        cout << "Enter number 0 to 9\n";
+        cout << "Enter number 0 to 7\n";
         cin >> int_data;
     }
     return int_data;
 }
 
 
-double correct_double_perfomanse()
+double is_correct_double_perfomanse()
 {
     double double_data;
     cin >> double_data;
@@ -105,13 +99,13 @@ Pipe add_pipe()
 {
     Pipe new_pipe;
     cout << "Enter the pipe number km\n";
-    new_pipe.mark_kilometr =  to_string(correct_int()) + "km";
+    new_pipe.mark_kilometr =  to_string(is_correct_int()) + "km";
     cout << "Enter the length of the pipe\n";
-    new_pipe.length = correct_double();
+    new_pipe.length = is_correct_double();
     cout << "Enter the diameter of the pipe\n";
-    new_pipe.diameter = correct_int();
-    cout << "Enter the repair of the pipe in 0 or 1\n";
-    new_pipe.repair = correct_bool();
+    new_pipe.diameter = is_correct_int();
+    cout << "Enter the repair of the pipe reparing = 0 or unreparing=0\n";
+    new_pipe.repair = is_correct_bool();
     return new_pipe;
 }
 
@@ -141,10 +135,10 @@ CS add_cs()
     cin.ignore();
     getline(cin, new_station.name);
     cout << "Enter the count shop of the compression station\n";
-    new_station.count_shop = correct_int();
+    new_station.count_shop = is_correct_int();
     cout << "Enter the count workshop of the compression station\n";
     do {
-        count_workshop = correct_int();
+        count_workshop = is_correct_int();
         if (count_workshop <= new_station.count_shop) {
             fl_cs = true;
         }
@@ -154,7 +148,7 @@ CS add_cs()
     } while (fl_cs != true);
     new_station.count_workshop = count_workshop;
     cout << "Enter the perfomance compression station in the 0.00 to 1.00\n"; 
-    new_station.perfomance = correct_double_perfomanse();
+    new_station.perfomance = is_correct_double_perfomanse();
     return new_station;
 }
 
@@ -255,7 +249,7 @@ int main()
             << "5. Edit KC;\n" << "6. Save;\n"
             << "7. Load\n" << "0. Exit\n";
         cout << "Enter the number\n";
-        number = check_number_command();
+        number = is_check_number_command();
         switch (number)
         {
         case 1:
@@ -279,8 +273,8 @@ int main()
                 cout << "No new pipe\n";
             }
             else {
-                cout << "editing the under repair attribute for a pipe\n";
-                new_pipe.repair = correct_bool();
+                cout << "editing the repair attribute for a pipe\n";
+                new_pipe.repair = is_correct_bool();
             }
             break;
         case 5:
@@ -290,8 +284,9 @@ int main()
                 cout << "No new station\n";
             }
             else {
+                cout << "editing the count workshop attribute for cs\n";
                 do {
-                    count_workshop = correct_int();
+                    count_workshop = is_correct_int();
                     if (count_workshop < new_station.count_shop or count_workshop == new_station.count_shop) {
                         fl_cs = true;
                     }
