@@ -20,9 +20,16 @@ struct CS {
     double perfomance = 0.00;
 };
 
+istream&
+operator>>(std::istream& in, Pipe& pipe) {
+    in >> pipe.mark_kilometr >> pipe.length >> pipe.diameter >> pipe.repair;
+    return in;
+}
 
-int correct_int(int& int_data)
+
+int correct_int()
 {
+    int int_data;
     cin >> int_data;
     while (cin.fail() || cin.peek() != '\n' || int_data <= 0)
     {
@@ -35,8 +42,9 @@ int correct_int(int& int_data)
 }
 
 
-double correct_double(double& double_data)
+double correct_double()
 {
+    double double_data;
     cin >> double_data;
     while (cin.fail() || cin.peek() != '\n' || double_data <= 0)
     {
@@ -49,8 +57,9 @@ double correct_double(double& double_data)
 }
 
 
-bool correct_bool(bool& bool_data)
+bool correct_bool()
 {
+    bool bool_data;
     cin >> bool_data;
     while (cin.fail() || cin.peek() != '\n')
     {
@@ -63,8 +72,9 @@ bool correct_bool(bool& bool_data)
 }
 
 
-int check_number_command(int& int_data)
+int check_number_command()
 {
+    int int_data;
     cin >> int_data;
     while (cin.fail() || cin.peek() != '\n' || int_data < 0 || int_data > 9)
     {
@@ -77,8 +87,9 @@ int check_number_command(int& int_data)
 }
 
 
-double correct_double_perfomanse(double& double_data)
+double correct_double_perfomanse()
 {
+    double double_data;
     cin >> double_data;
     while (cin.fail() || cin.peek() != '\n' || double_data <= 0 || double_data > 1)
     {
@@ -93,15 +104,14 @@ double correct_double_perfomanse(double& double_data)
 Pipe add_pipe()
 {
     Pipe new_pipe;
-    int number_km;
     cout << "Enter the pipe number km\n";
-    new_pipe.mark_kilometr =  to_string(correct_int(number_km)) + "km";
+    new_pipe.mark_kilometr =  to_string(correct_int()) + "km";
     cout << "Enter the length of the pipe\n";
-    correct_double(new_pipe.length);
+    new_pipe.length = correct_double();
     cout << "Enter the diameter of the pipe\n";
-    correct_int(new_pipe.diameter);
+    new_pipe.diameter = correct_int();
     cout << "Enter the repair of the pipe in 0 or 1\n";
-    correct_bool(new_pipe.repair);
+    new_pipe.repair = correct_bool();
     return new_pipe;
 }
 
@@ -131,11 +141,11 @@ CS add_cs()
     cin.ignore();
     getline(cin, new_station.name);
     cout << "Enter the count shop of the compression station\n";
-    correct_int(new_station.count_shop);
+    new_station.count_shop = correct_int();
     cout << "Enter the count workshop of the compression station\n";
     do {
-        count_workshop = correct_int(count_workshop);
-        if (count_workshop < new_station.count_shop or count_workshop == new_station.count_shop) {
+        count_workshop = correct_int();
+        if (count_workshop <= new_station.count_shop) {
             fl_cs = true;
         }
         else {
@@ -144,7 +154,7 @@ CS add_cs()
     } while (fl_cs != true);
     new_station.count_workshop = count_workshop;
     cout << "Enter the perfomance compression station in the 0.00 to 1.00\n"; 
-    correct_double_perfomanse(new_station.perfomance);
+    new_station.perfomance = correct_double_perfomanse();
     return new_station;
 }
 
@@ -164,8 +174,7 @@ void output_cs(CS new_station)
 }
 
 
-void SavePipe(const Pipe& pipe) {
-    ofstream fout("information.txt");
+void Save_Pipe(ofstream& fout, const Pipe& pipe) {
     if (pipe.mark_kilometr != "0km") {
         fout << "information of pipe\n";
         fout << pipe.mark_kilometr << '\n';
@@ -173,41 +182,10 @@ void SavePipe(const Pipe& pipe) {
         fout << pipe.diameter << '\n';
         fout << pipe.repair << '\n';
     }
-    else {
-        fout << "no pipe\n";
-    }
-    fout.close();
 }
 
 
-void LoadPipe(Pipe& pipe) {
-    ifstream fin("information.txt");
-    string firstline;
-    if (fin.is_open())
-    {
-        getline(fin, firstline);
-        if (firstline == "information of pipe") {
-            fin >> pipe.mark_kilometr;
-            fin >> pipe.length;
-            fin >> pipe.diameter;
-            fin >> pipe.repair;
-        }
-        else if (firstline == "information of cs") {
-            cout << "\nThe file contains information about cs\n";
-        }
-        else {
-            cout << "\nNo information in file\n";
-        }
-        fin.close();
-    }
-    else {
-        cout << "Error in open file\n";
-    }
-}
-
-
-void SaveCs(const CS& cs) {
-    ofstream fout("information.txt");
+void Save_Cs(ofstream& fout, const CS& cs) {
     if (cs.name != "no") {
         fout << "information of cs\n";
         fout << cs.name << '\n';
@@ -215,38 +193,53 @@ void SaveCs(const CS& cs) {
         fout << cs.count_workshop << '\n';
         fout << cs.perfomance << '\n';
     }
-    else {
-        fout << "no station\n";
-    }
+}
+
+
+void Save(const Pipe& pipe, const CS& cs) {
+    ofstream fout("information.txt");
+    Save_Pipe(fout, pipe);
+    Save_Cs(fout, cs);
     fout.close();
 }
 
 
-void LoadCS(CS& cs) {
-    ifstream fin("information.txt");
-    string firstline;
-    if (fin.is_open())
-    {
-        getline(fin, firstline);
-        if (firstline == "information of cs") {
-            fin >> cs.name;
-            fin >> cs.count_shop;
-            fin >> cs.count_workshop;
-            fin >> cs.perfomance;
-        }
-        else if (firstline == "information of pipe") {
-            cout << "\nThe file contains information about pipe\n";
-        }
-        else {
-            cout << "\nNo information in file\n";
-        }
-        fin.close();
-    }
-    else {
-        cout << "Error in open file\n";
-    }
+void Load_Pipe(ifstream& fin, Pipe& pipe) {
+    fin >> pipe.mark_kilometr;
+    fin >> pipe.length;
+    fin >> pipe.diameter;
+    fin >> pipe.repair;
 }
 
+
+void Load_Cs(ifstream& fin, CS& cs) {
+    fin >> cs.name;
+    fin >> cs.count_shop;
+    fin >> cs.count_workshop;
+    fin >> cs.perfomance;
+
+}
+
+
+void Load(Pipe& pipe, CS& cs) {
+    ifstream fin("information.txt");
+    string line;
+    int flag = 0;
+    if (fin.is_open()) {
+        while (getline(fin, line)) {
+            if (line == "information of pipe") {
+                Load_Pipe(fin, pipe);
+                flag = 1;
+            }
+            else if (line == "information of cs") {
+                Load_Cs(fin, cs);
+                flag = 1;
+            }
+        if (flag == 0) cout << "\nNo information in file\n";
+        }
+        fin.close();
+    }   
+}
 
 int main()
 {
@@ -259,11 +252,10 @@ int main()
         cout << "Menu:\n";
         cout << "1. Add pipes;\n" << "2. Add KC;\n"
             << "3. All objects;\n" << "4. Edit pipes;\n"
-            << "5. Edit KC;\n" << "6. Save Pipe;\n"
-            << "7. Download Pipe;\n" << "8. Save KC;\n"
-            << "9. Download KC;\n" << "0. Exit\n";
+            << "5. Edit KC;\n" << "6. Save;\n"
+            << "7. Load\n" << "0. Exit\n";
         cout << "Enter the number\n";
-        check_number_command(number);
+        number = check_number_command();
         switch (number)
         {
         case 1:
@@ -288,7 +280,7 @@ int main()
             }
             else {
                 cout << "editing the under repair attribute for a pipe\n";
-                correct_bool(new_pipe.repair);
+                new_pipe.repair = correct_bool();
             }
             break;
         case 5:
@@ -299,7 +291,7 @@ int main()
             }
             else {
                 do {
-                    count_workshop = correct_int(count_workshop);
+                    count_workshop = correct_int();
                     if (count_workshop < new_station.count_shop or count_workshop == new_station.count_shop) {
                         fl_cs = true;
                     }
@@ -311,20 +303,12 @@ int main()
             }
             break;
         case 6:
-            cout << "Save Pipe\n";
-            SavePipe(new_pipe);
+            cout << "Save\n";
+            Save(new_pipe, new_station);
             break;
         case 7:
-            cout << "Download Pipe\n";
-            LoadPipe(new_pipe);
-            break;
-        case 8:
-            cout << "Save KS\n";
-            SaveCs(new_station);
-            break;
-        case 9:
-            cout << "Download KS\n";
-            LoadCS(new_station);
+            cout << "Load\n";
+            Load(new_pipe, new_station);
             break;
         case 0:
             cout << "End command\n";
