@@ -25,7 +25,7 @@ int is_correct_int()
 {
     int int_data;
     cin >> int_data;
-    while (cin.fail() || cin.peek() != '\n' || int_data <= 0)
+    while (cin.fail() || cin.peek() != '\n' || int_data < 0)
     {
         cin.clear();
         cin.ignore(100000, '\n');
@@ -207,12 +207,12 @@ void Load(Pipe& pipe, CS& cs) {
         while (getline(fin, line)) {
             if (line == "information of pipe") {
                 Load_Pipe(fin, pipe);
-                cout << "Load pipe in structure";
+                cout << "Load pipe in structure\n";
                 flag = 1;
             }
             else if (line == "information of cs") {
                 Load_Cs(fin, cs);
-                cout << "Load cs in structure";
+                cout << "Load cs in structure\n";
                 flag = 1;
             }
         if (flag == 0) cout << "\nNo information in file\n";
