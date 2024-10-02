@@ -66,7 +66,7 @@ bool is_correct_bool()
 }
 
 
-double is_correct_double_perfomanse()
+double is_correct_double_perfomance()
 {
     double double_data;
     cin >> double_data;
@@ -79,6 +79,7 @@ double is_correct_double_perfomanse()
     }
     return double_data;
 }
+
 
 Pipe add_pipe()
 {
@@ -133,7 +134,7 @@ CS add_cs()
     } while (fl_cs != true);
     new_station.count_workshop = count_workshop;
     cout << "Enter the perfomance compression station in the 0.00 to 1.00\n"; 
-    new_station.perfomance = is_correct_double_perfomanse();
+    new_station.perfomance = is_correct_double_perfomance();
     return new_station;
 }
 
