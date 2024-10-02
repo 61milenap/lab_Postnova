@@ -66,21 +66,6 @@ bool is_correct_bool()
 }
 
 
-int is_check_number_command()
-{
-    int int_data;
-    cin >> int_data;
-    while (cin.fail() || cin.peek() != '\n' || int_data < 0 || int_data > 7)
-    {
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "Enter number 0 to 7\n";
-        cin >> int_data;
-    }
-    return int_data;
-}
-
-
 double is_correct_double_perfomanse()
 {
     double double_data;
@@ -211,7 +196,6 @@ void Load_Cs(ifstream& fin, CS& cs) {
     fin >> cs.count_shop;
     fin >> cs.count_workshop;
     fin >> cs.perfomance;
-
 }
 
 
@@ -223,10 +207,12 @@ void Load(Pipe& pipe, CS& cs) {
         while (getline(fin, line)) {
             if (line == "information of pipe") {
                 Load_Pipe(fin, pipe);
+                cout << "Load pipe in structure";
                 flag = 1;
             }
             else if (line == "information of cs") {
                 Load_Cs(fin, cs);
+                cout << "Load cs in structure";
                 flag = 1;
             }
         if (flag == 0) cout << "\nNo information in file\n";
@@ -244,12 +230,12 @@ int main()
     while (true) {
         //меню приложения
         cout << "Menu:\n";
-        cout << "1. Add pipes;\n" << "2. Add KC;\n"
+        cout << "1. Add pipes;\n" << "2. Add CS;\n"
             << "3. All objects;\n" << "4. Edit pipes;\n"
-            << "5. Edit KC;\n" << "6. Save;\n"
+            << "5. Edit CS;\n" << "6. Save;\n"
             << "7. Load\n" << "0. Exit\n";
         cout << "Enter the number\n";
-        number = is_check_number_command();
+        number = is_correct_int();
         switch (number)
         {
         case 1:
