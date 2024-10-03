@@ -7,7 +7,7 @@ using namespace std;
 
 
 struct Pipe {
-    string mark_kilometr = "0km";
+    string mark_kilometr = "no";
     bool repair = 0;
     int diameter = 0;
     double length = 0.0;
@@ -84,8 +84,8 @@ double is_correct_double_perfomance()
 Pipe add_pipe()
 {
     Pipe new_pipe;
-    cout << "Enter the pipe number km\n";
-    new_pipe.mark_kilometr =  to_string(is_correct_int()) + "km";
+    cout << "Enter the pipe name\n";
+    getline(cin, new_pipe.mark_kilometr);
     cout << "Enter the length of the pipe\n";
     new_pipe.length = is_correct_double();
     cout << "Enter the diameter of the pipe\n";
@@ -98,7 +98,7 @@ Pipe add_pipe()
 
 void output_pipe(Pipe new_pipe)
 {
-    if (new_pipe.mark_kilometr == "0km") {
+    if (new_pipe.mark_kilometr == "no") {
         cout << "No new pipe\n";
     }
     else {
@@ -118,8 +118,7 @@ CS add_cs()
     int count_workshop;
     bool fl_cs = false;
     cout << "Enter the  name of the compression station\n";
-    cin.ignore();
-    getline(cin, new_station.name);
+    cin >> new_station.name;
     cout << "Enter the count shop of the compression station\n";
     new_station.count_shop = is_correct_int();
     cout << "Enter the count workshop of the compression station\n";
@@ -155,7 +154,7 @@ void output_cs(CS new_station)
 
 
 void Save_Pipe(ofstream& fout, const Pipe& pipe) {
-    if (pipe.mark_kilometr != "0km") {
+    if (pipe.mark_kilometr != "no") {
         fout << "information of pipe\n";
         fout << pipe.mark_kilometr << '\n';
         fout << pipe.length << '\n';
@@ -185,7 +184,7 @@ void Save(const Pipe& pipe, const CS& cs) {
 
 
 void Load_Pipe(ifstream& fin, Pipe& pipe) {
-    fin >> pipe.mark_kilometr;
+    getline(fin, pipe.mark_kilometr);
     fin >> pipe.length;
     fin >> pipe.diameter;
     fin >> pipe.repair;
@@ -193,7 +192,7 @@ void Load_Pipe(ifstream& fin, Pipe& pipe) {
 
 
 void Load_Cs(ifstream& fin, CS& cs) {
-    fin >> cs.name;
+    getline(fin, cs.name);
     fin >> cs.count_shop;
     fin >> cs.count_workshop;
     fin >> cs.perfomance;
@@ -256,7 +255,7 @@ int main()
             break;
         case 4:
             cout << "Edit pipe\n";
-            if (new_pipe.mark_kilometr == "0km") {
+            if (new_pipe.mark_kilometr == "no") {
                 cout << "No new pipe\n";
             }
             else {
