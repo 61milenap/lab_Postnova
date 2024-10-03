@@ -85,8 +85,7 @@ Pipe add_pipe()
 {
     Pipe new_pipe;
     cout << "Enter the pipe name\n";
-    getline(cin, new_pipe.mark_kilometr);
-    cin.ignore(10000, '\n');
+    getline(cin >>ws, new_pipe.mark_kilometr);
     cout << "Enter the length of the pipe\n";
     new_pipe.length = correct_double();
     cout << "Enter the diameter of the pipe\n";
@@ -119,8 +118,7 @@ CS add_cs()
     int count_workshop;
     bool fl_cs = false;
     cout << "Enter the  name of the compression station\n";
-    getline(cin, new_station.name);
-    cin.ignore(10000, '\n');
+    getline(cin >> ws, new_station.name);
     cout << "Enter the count shop of the compression station\n";
     new_station.count_shop = correct_int();
     cout << "Enter the count workshop of the compression station\n";
