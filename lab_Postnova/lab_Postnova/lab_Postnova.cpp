@@ -10,7 +10,7 @@ struct Pipe {
     string mark_kilometr = "no";
     bool repair = 0;
     int diameter = 0;
-    double length = 0.0;
+    double length = 0.00;
 };
 
 
@@ -21,63 +21,29 @@ struct CS {
 };
 
 
-int correct_int()
-{
-    int int_data;
-    cin >> int_data;
-    while (cin.fail() || cin.peek() != '\n' || int_data < 0)
+template <typename T>
+T GetCorrectNumber(T min, T max) {
+    T x;
+    while ((cin >> x).fail() || cin.peek() != '\n' || x < min || x > max)
     {
         cin.clear();
         cin.ignore(100000, '\n');
-        cout << "\nEnter an integer data type greater than 0\n";
-        cin >> int_data;
+        cout << "\nEnter an number ("<< min << " - " << max <<") \n";
     }
-    return int_data;
-}
-
-
-double correct_double()
-{
-    double double_data;
-    cin >> double_data;
-    while (cin.fail() || cin.peek() != '\n' || double_data <= 0)
-    {
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "\nEnter a double data type greater than 0\n";
-        cin >> double_data;
-    }
-    return double_data;
+    return x;
 }
 
 
 bool correct_bool()
 {
     bool bool_data;
-    cin >> bool_data;
-    while (cin.fail() || cin.peek() != '\n')
+    while ((cin >> bool_data).fail() || cin.peek() != '\n')
     {
         cin.clear();
         cin.ignore(100000, '\n');
-        cout << "\nEnter a boolean data type\n";
-        cin >> bool_data;
+        cout << "\nEnter a boolean data type(0 or 1)\n";
     }
     return bool_data;
-}
-
-
-double correct_double_perfomance()
-{
-    double double_data;
-    cin >> double_data;
-    while (cin.fail() || cin.peek() != '\n' || double_data <= 0 || double_data > 1)
-    {
-        cin.clear();
-        cin.ignore(100000, '\n');
-        cout << "Enter perfomance 0.00 to 1.00\n";
-        cin >> double_data;
-    }
-    return double_data;
 }
 
 
@@ -85,12 +51,12 @@ Pipe add_pipe()
 {
     Pipe new_pipe;
     cout << "Enter the pipe name\n";
-    getline(cin >>ws, new_pipe.mark_kilometr);
+    getline(cin >> ws, new_pipe.mark_kilometr);
     cout << "Enter the length of the pipe\n";
-    new_pipe.length = correct_double();
+    new_pipe.length = GetCorrectNumber(1.00, 20.00);
     cout << "Enter the diameter of the pipe\n";
-    new_pipe.diameter = correct_int();
-    cout << "Enter the repair of the pipe reparing = 0 or unreparing=0\n";
+    new_pipe.diameter = GetCorrectNumber(10, 200);
+    cout << "Enter the repair of the pipe reparing = 1 or unreparing=0\n";
     new_pipe.repair = correct_bool();
     return new_pipe;
 }
@@ -120,10 +86,10 @@ CS add_cs()
     cout << "Enter the  name of the compression station\n";
     getline(cin >> ws, new_station.name);
     cout << "Enter the count shop of the compression station\n";
-    new_station.count_shop = correct_int();
+    new_station.count_shop = GetCorrectNumber(0, 10000);
     cout << "Enter the count workshop of the compression station\n";
     do {
-        count_workshop = correct_int();
+        count_workshop = GetCorrectNumber(0, 10000);
         if (count_workshop <= new_station.count_shop) {
             fl_cs = true;
         }
@@ -132,8 +98,8 @@ CS add_cs()
         }
     } while (fl_cs != true);
     new_station.count_workshop = count_workshop;
-    cout << "Enter the perfomance compression station in the 0.00 to 1.00\n"; 
-    new_station.perfomance = correct_double_perfomance();
+    cout << "Enter the perfomance compression station\n"; 
+    new_station.perfomance = GetCorrectNumber(0.00, 1.00);
     return new_station;
 }
 
@@ -221,22 +187,26 @@ void Load(Pipe& pipe, CS& cs) {
     }   
 }
 
+
+void PrintMenu()
+{
+    cout << "Menu:\n"
+        << "1. Add pipes;\n" << "2. Add CS;\n"
+        << "3. All objects;\n" << "4. Edit pipes;\n"
+        << "5. Edit CS;\n" << "6. Save;\n"
+        << "7. Load\n" << "0. Exit\n"
+        << "Choose action: ";
+}
+
+
 int main()
 {
     Pipe new_pipe;
     CS new_station;
-    int number;
     bool fl_cs = false;
     while (true) {
-        //меню приложения
-        cout << "Menu:\n";
-        cout << "1. Add pipes;\n" << "2. Add CS;\n"
-            << "3. All objects;\n" << "4. Edit pipes;\n"
-            << "5. Edit CS;\n" << "6. Save;\n"
-            << "7. Load\n" << "0. Exit\n";
-        cout << "Enter the number\n";
-        number = correct_int();
-        switch (number)
+        PrintMenu();
+        switch (GetCorrectNumber(0, 7))
         {
         case 1:
             cout << "Add pipes\n";
@@ -272,7 +242,7 @@ int main()
             else {
                 cout << "editing the count workshop attribute for cs\n";
                 do {
-                    count_workshop = correct_int();
+                    count_workshop = GetCorrectNumber(0, 10000);
                     if (count_workshop < new_station.count_shop or count_workshop == new_station.count_shop) {
                         fl_cs = true;
                     }
