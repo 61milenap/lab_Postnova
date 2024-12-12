@@ -2,6 +2,7 @@
 #include "CSclass.h"
 #include "Functions.h"
 #include "SaveLoad.h"
+#include "cs.h"
 
 int CS::maxid = 0;
 
@@ -38,7 +39,6 @@ double CS::GetPerformance() const
     return performance;
 }
 
-// Îïåğàòîğ ââîäà èç ôàéëà
 std::ifstream& operator>>(std::ifstream& fin, CS& g)
 {
     fin >> g.id;

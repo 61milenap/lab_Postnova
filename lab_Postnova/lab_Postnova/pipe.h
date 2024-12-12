@@ -4,8 +4,8 @@
 #include <fstream>
 #include <istream>
 
-
-class Pipe {
+class Pipe
+{
 private:
     std::string mark_kilometr = "no";
     bool repair = false;

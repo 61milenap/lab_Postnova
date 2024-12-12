@@ -4,15 +4,16 @@
 #include <fstream>
 #include <istream>
 
-class CS {
+class CS
+{
 private:
-    std::string name; 
-    int count_shop; 
-    int count_workshop; 
-    double performance; 
+    std::string name;
+    int count_shop;
+    int count_workshop;
+    double performance;
 
 public:
-    CS() : name("no"), count_shop(0), count_workshop(0), performance(0.00) {} 
+    CS() : name("no"), count_shop(0), count_workshop(0), performance(0.00) {}
 
     std::string Getname() const { return name; }
 
