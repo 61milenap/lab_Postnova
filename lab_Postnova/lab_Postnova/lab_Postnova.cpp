@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "PIPEclass.h"
-#include "CSclass.h"
+#include "Pipe.h"
+#include "cs.h"
 #include "SaveLoad.h"
 #include "Functions.h"
 #include <unordered_map>

@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <istream>
-#include "PIPEclass.h"
+#include "Pipe.h"
 
 int Pipe::maxid = 0;
 
