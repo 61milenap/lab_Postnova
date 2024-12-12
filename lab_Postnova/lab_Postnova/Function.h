@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "PIPEclass.h"
-#include "CSclass.h"
+#include "Pipe.h"
+#include "cs.h"
 #include <unordered_map>
 #include <unordered_set>
 #include <chrono>

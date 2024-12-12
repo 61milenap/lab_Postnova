@@ -1,8 +1,8 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <string>
 #include <fstream>
-#include "Pipe.h"
-#include "cs.h"
+#include "PIPEclass.h"
+#include "CSclass.h"
 #include "SaveLoad.h"
 #include "Functions.h"
 #include <unordered_map>
@@ -124,8 +124,7 @@ void MainMenu(std::unordered_map<int, Pipe>& Pipemap, std::unordered_map<int, CS
 						state = GetCorrectNumber(0, 1);
 						res = FindPipeFilter(Pipemap, checkstate, state);
 						PrintChois();
-						продолжи
-				case 2:
+				case 3:
 					if (Pipemap.empty()) {
 						std::cout << "No objects" << std::endl;
 						break;
@@ -144,7 +143,7 @@ void MainMenu(std::unordered_map<int, Pipe>& Pipemap, std::unordered_map<int, CS
 						}
 					}
 					break;
-				case 3:
+				case 4:
 					if (KSmap.empty()) {
 						std::cout << "No objects" << std::endl;
 						break;
@@ -163,7 +162,7 @@ void MainMenu(std::unordered_map<int, Pipe>& Pipemap, std::unordered_map<int, CS
 						}
 					}
 					break;
-				case 4:
+				case 5:
 					if (KSmap.empty()) {
 						std::cout << "No objects" << std::endl;
 						break;

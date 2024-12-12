@@ -1,6 +1,5 @@
 #include <iostream>
-#include "CSclass.h"
-#include "Functions.h"
+#include "Function.h"
 #include "SaveLoad.h"
 #include "cs.h"
 

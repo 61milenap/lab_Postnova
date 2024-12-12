@@ -1,10 +1,10 @@
 #pragma once
-#include "PIPEclass.h"
-#include "CSclass.h"
+#include "Pipe.h"
+#include "cs.h"
 #include <unordered_map>
 #include <sstream> 
 #include <vector>
-#include "Functions.h"
+#include "Function.h"
 
 void KSCreate(std::unordered_map<int, CS>& m);
 void PipesCreate(std::unordered_map<int, Pipe>& m);
