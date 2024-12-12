@@ -6,6 +6,7 @@
 
 int Pipe::maxid = 0;
 
+// Реализация методов класса Pipe
 Pipe::Pipe() {
     id = ++maxid;
 }
@@ -65,22 +66,22 @@ std::ofstream& operator<<(std::ofstream& fout, const Pipe& p) {
 }
 
 std::istream& operator>>(std::istream& in, Pipe& p) {
-    std::cout << "Mark kilometr: ";
+    std::cout << "Введите метку километра трубы: ";
     std::getline(in, p.mark_kilometr);
-    std::cout << "In repair (0 - Нет, 1 - Да): ";
+    std::cout << "Находится ли труба в ремонте (0 - Нет, 1 - Да): ";
     in >> p.repair;
-    std::cout << "Diameter: ";
+    std::cout << "Введите диаметр трубы: ";
     in >> p.diameter;
-    std::cout << "Length: ";
+    std::cout << "Введите длину трубы: ";
     in >> p.length;
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Pipe& p) {
     out << "ID: " << p.id << std::endl;
-    out << "Mark kilometr: " << p.mark_kilometr << std::endl;
-    out << "In repair: " << (p.repair ? "Yes" : "No") << std::endl;
-    out << "Diameter: " << p.diameter << std::endl;
-    out << "Length: " << p.length << std::endl;
+    out << "Метка километра: " << p.mark_kilometr << std::endl;
+    out << "В ремонте: " << (p.repair ? "Да" : "Нет") << std::endl;
+    out << "Диаметр: " << p.diameter << std::endl;
+    out << "Длина: " << p.length << std::endl;
     return out;
 }
